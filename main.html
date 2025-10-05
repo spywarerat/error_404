@@ -1,1 +1,225 @@
-main
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Letter for Shreya 💌</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    background: linear-gradient(135deg, #fbe9e7, #ffe0f0);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    font-family: 'Dancing Script', cursive;
+    padding: 20px;
+  }
+
+  .letter {
+    background: #fff8f6;
+    width: 100%;
+    max-width: 700px;
+    padding: 30px 20px;
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(255, 105, 180, 0.2);
+    text-align: center;
+    transform: rotate(-1.5deg);
+    animation: fadeIn 2s ease forwards;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    color: #b30059;
+    margin-bottom: 20px;
+  }
+
+  .main-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    color: #333;
+    text-align: center;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    animation: fadeInUp 1.8s ease forwards;
+  }
+
+  .main-text p {
+    background: rgba(255, 240, 245, 0.6);
+    padding: 12px 18px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(255, 182, 193, 0.3);
+  }
+
+  .highlight {
+    color: #b30059;
+    font-weight: 600;
+  }
+
+  .buttons {
+    margin-top: 25px;
+  }
+
+  button {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    padding: 12px 28px;
+    border-radius: 30px;
+    border: none;
+    background: #ff5e78;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(255, 94, 120, 0.5);
+    margin: 0 8px;
+  }
+
+  button:hover {
+    transform: scale(1.1);
+    background: #ff3366;
+  }
+
+  #response {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #b30059;
+    margin-top: 20px;
+  }
+
+  .signature {
+    margin-top: 25px;
+    font-size: 1.4rem;
+    color: #b30059;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(40px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+
+  @keyframes fadeInUp {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+
+  @keyframes floatUp {
+    0% {transform: translateY(100vh) scale(0.5); opacity: 0.6;}
+    100% {transform: translateY(-10vh) scale(1.1); opacity: 0;}
+  }
+
+  .heart {
+    position: fixed;
+    font-size: 2rem;
+    color: #ff3366;
+    opacity: 0.7;
+    animation: floatUp 6s linear infinite;
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 480px) {
+    .letter {
+      padding: 20px 14px;
+      transform: none;
+    }
+    h1 {
+      font-size: 1.8rem;
+    }
+    .main-text {
+      font-size: 1rem;
+    }
+    button {
+      font-size: 1rem;
+      padding: 10px 20px;
+      margin: 6px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="letter">
+  <h1>Dear Shreya ❤️</h1>
+
+  <div class="main-text" id="typewriter"></div>
+
+  <div class="buttons">
+    <button id="yesBtn">💖 Yes</button>
+    <button id="noBtn">🙏 Not now</button>
+  </div>
+
+  <div id="response"></div>
+  <div class="signature">— Yours, Nitin Singh</div>
+</div>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+(function(){
+  emailjs.init("G2lWeHrhSDuUe9wJ7"); // ✅ your actual EmailJS public key
+})();
+
+// Floating hearts
+setInterval(() => {
+  const heart = document.createElement('div');
+  heart.className = 'heart';
+  heart.innerHTML = '💗';
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.animationDuration = (3 + Math.random() * 5) + 's';
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 6000);
+}, 500);
+
+// Typewriter effect
+const message = `
+This might be a little unexpected… but I wanted to share my feelings with you.  
+Since the first time I saw you in class, I noticed you’re <strong>different</strong> — not by looks,  
+but by your <span class="highlight">kindness</span>, your <span class="highlight">calm nature</span>, and the way you make people around you feel <strong>happy and comfortable</strong>. 🌸  
+
+Maybe it’s <strong>too early</strong> — and that’s okay.  
+I don’t want to rush you; I just want you to know that I genuinely <span class="highlight">like you</span>.  
+All I wish is to see you <strong>smile every day</strong>.  
+If I ever get that chance, I’ll do everything I can to be the reason behind your <span class="highlight">peace and happiness</span>. 😊
+`;
+
+let i = 0;
+function typeWriter() {
+  const el = document.getElementById("typewriter");
+  if (i < message.length) {
+    el.innerHTML = message.substring(0, i++) + '|';
+    setTimeout(typeWriter, 25);
+  } else {
+    el.innerHTML = message;
+  }
+}
+window.onload = typeWriter;
+
+// EmailJS Send Function
+function sendEmail(answer) {
+  const templateParams = {
+    to_name: "Nitin Singh",
+    from_name: "Shreya",
+    message: answer
+  };
+
+  emailjs.send("service_9eisbwn", "template_8rrrx09", templateParams)
+  .then(function(response) {
+      document.getElementById('response').innerHTML = 
+        (answer.includes("YES"))
+        ? "💖 Thank you Shreya! You just made me the happiest person alive!"
+        : "🙏 Thank you, Shreya! I understand — your happiness means everything to me. 🌷";
+  }, function(error) {
+      document.getElementById('response').innerHTML = 
+        "⚠️ Could not send the email right now, but your response means a lot to me!";
+      console.error('Email send failed:', error);
+  });
+}
+
+document.getElementById('yesBtn').addEventListener('click', () => sendEmail("She said YES 💖"));
+document.getElementById('noBtn').addEventListener('click', () => sendEmail("She said Not now 🙏"));
+</script>
+</body>
+</html>
